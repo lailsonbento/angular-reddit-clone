@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
-import { AuthService } from '../auth/shared/auth.service';
 import { Router } from '@angular/router';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -9,11 +9,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+
   faUser = faUser;
   isLoggedIn: boolean;
   username: string;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(
+    private authService: AuthService,
+    private router: Router) { }
 
   ngOnInit() {
     this.authService.loggedIn.subscribe((data: boolean) => this.isLoggedIn = data);
