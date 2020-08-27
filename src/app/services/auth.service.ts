@@ -1,12 +1,13 @@
-import { Injectable, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { SignupRequestPayload } from '../signup/singup-request.payload';
-import { Observable, throwError } from 'rxjs';
-import { LocalStorageService } from 'ngx-webstorage';
-import { LoginRequestPayload } from '../login/login-request.payload';
-import { LoginResponse } from '../login/login-response.payload';
-import { map, tap } from 'rxjs/operators';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { LocalStorageService } from 'ngx-webstorage';
+import { Observable, throwError } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+
+import { LoginRequestPayload } from '../model/login-request.payload';
+import { LoginResponse } from '../model/login-response.payload';
+import { SignupRequestPayload } from '../model/singup-request.payload';
 
 @Injectable({
   providedIn: 'root'

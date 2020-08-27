@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { SignupRequestPayload } from './singup-request.payload';
-import { AuthService } from '../shared/auth.service';
-import { ToastrService } from 'ngx-toastr';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { SignupRequestPayload } from 'src/app/model/singup-request.payload';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -16,9 +16,10 @@ export class SignupComponent implements OnInit {
   signupForm: FormGroup;
 
   constructor(
-    private authService: AuthService, 
+    private authService: AuthService,
     private router: Router,
-    private toastr: ToastrService) {
+    private toastr: ToastrService,
+    private formBuilder: FormBuilder) {
 
     this.signupRequestPayload = {
       username: '',
@@ -28,10 +29,10 @@ export class SignupComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.signupForm = new FormGroup({
-      username: new FormControl('', Validators.required),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', Validators.required),
+    this.signupForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
     });
   }
 

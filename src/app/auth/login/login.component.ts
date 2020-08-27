@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { LoginRequestPayload } from './login-request.payload';
-import { AuthService } from '../shared/auth.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { throwError } from 'rxjs';
+import { LoginRequestPayload } from 'src/app/model/login-request.payload';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -19,10 +19,11 @@ export class LoginComponent implements OnInit {
   isError: boolean;
 
   constructor(
-    private authService: AuthService, 
+    private authService: AuthService,
     private activatedRoute: ActivatedRoute,
-    private router: Router, 
-    private toastr: ToastrService) {
+    private router: Router,
+    private toastr: ToastrService,
+    private formBuilder: FormBuilder) {
 
     this.loginRequestPayload = {
       username: '',
@@ -31,9 +32,9 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loginForm = new FormGroup({
-      username: new FormControl('', Validators.required),
-      password: new FormControl('', Validators.required)
+    this.loginForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
     });
 
     this.activatedRoute.queryParams
